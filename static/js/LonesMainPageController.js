@@ -58,15 +58,6 @@ $(document).scroll(function() {
     }
 });
 
-// cross-browser support for mobile menu "fixed" position.
-var $window = $(window);
-var $mobileMenuBar = $('#mobile-menu-bar');
-var $mobileSideMenu = $('#mobile-side-menu');
-$window.scroll(function() {
-    $mobileMenuBar.css('top', $(this).scrollTop() + "px");
-    $mobileSideMenu.css('top', $(this).scrollTop() + "px");
-});
-
 // displays mobile menu on mobile-menu-btn click.
 $(document).ready(function(){
     $('#mobile-menu-btn').click(function(){
