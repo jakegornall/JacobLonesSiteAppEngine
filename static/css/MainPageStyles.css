@@ -21,7 +21,7 @@ body {
 
 #mobile-side-menu {
 	left: -60%;
-	position: absolute;
+	position: fixed;
 	width: 50%;
 	height: 100%;
 	top: 0px;
@@ -103,7 +103,7 @@ a:hover {
 }
 
 #mobile-menu-bar {
-    position: absolute;
+    position: fixed;
     display: none;
     top: 0px;
     width: 100%;
@@ -175,7 +175,7 @@ footer {
 
 	#mobile-side-menu {
 		left: -60%;
-		position: absolute;
+		position: fixed;
 		width: 50%;
 		height: 100%;
 		top: 0px;
