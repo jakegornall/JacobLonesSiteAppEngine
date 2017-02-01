@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-    return render_template("LandingPage.html", status="This site is using Flask.")
+    return render_template("LandingPage.html")
 
 
 @app.errorhandler(500)
