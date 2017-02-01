@@ -1,28 +1,15 @@
-import os
-import re
-import jinja2
-import webapp2
+import logging
+from flask import Flask, render_template, request
 
-template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
+app = Flask(__name__)
 
-
-class Handler(webapp2.RequestHandler):
-    def write(self, *a, **kw):
-        self.response.out.write(*a, **kw)
-
-    def render_str(self, template, **params):
-        t = jinja_env.get_template(template)
-        return t.render(params)
-
-    def render(self, template, **kw):
-        self.write(self.render_str(template, **kw))
+@app.route('/')
+def main():
+    return render_template("LandingPage.html")
 
 
-class MainPage(Handler):
-    def get(self):
-        self.render("LandingPage.html")
-
-app = webapp2.WSGIApplication([
-    ('/', MainPage)
-], debug=True)
+@app.errorhandler(500)
+def server_error(e):
+    # Log the error and stacktrace.
+    logging.exception('An error occurred during a request.')
+    return'An internal error occurred.', 500
