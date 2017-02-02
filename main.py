@@ -1,7 +1,10 @@
 import logging
 from flask import Flask, render_template, request
+from flask.ext.triangle import Triangle
 
 app = Flask(__name__)
+Triangle(app)
+
 
 @app.route('/')
 def main():

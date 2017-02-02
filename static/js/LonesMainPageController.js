@@ -99,3 +99,29 @@ $('a').click(function() {
     });
     return false;
 });
+
+angular.module('lonesSite', []).controller('calendarController', function() {
+    var calendar = this;
+
+    calendar.days = [
+        // sample data.
+        // To be replaced with Google Calendar API data.
+        {available: false, eventName: "My Event"},
+        {available: true, eventName: ""},
+        {available: false, eventName: "new Event"},
+    ];
+
+    calendar.open = function() {
+        $('#booking-modal').animate({
+            "width": "100%",
+            "padding": "10px"
+        });
+    };
+
+    calendar.close = function() {
+        $('#booking-modal').animate({
+            "width": "0px",
+            "padding": "0px"
+        });
+    };
+});

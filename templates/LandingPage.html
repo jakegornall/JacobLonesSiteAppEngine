@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en">
+<html lang="en" ng-app="lonesSite">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -25,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
 </head>
 
-<body>
+<body ng-controller="calendarController as calendar">
     <div class="no-margin no-padding">
         <div id="fixed-nav-bar" class="no-margin no-padding text-center horizontal-nav" width="100%">
             <a href="#home"><div class="menu-item">HOME</div></a>
@@ -33,6 +33,12 @@
             <a href="#music"><div class="menu-item">MUSIC</div></a>
             <a href="#photos"><div class="menu-item">PHOTOS</div></a>
             <a href="#shows"><div class="menu-item">SHOWS</div></a>
+        </div>
+    </div>
+    <div id="booking-button">
+        <div class="triangle-up-right"></div>
+        <div id="book-now" ng-click="calendar.open()">
+            <h3>Book A Show Here!</h3>
         </div>
     </div>
     <div id="mobile-menu-bar">
@@ -50,7 +56,7 @@
             <div class="col-md-6">
                 <a id="email-signup" href="https://www.reverbnation.com/page_object/join_mailing_list/artist_5552564"><h6>JOIN OUR MAILING LIST!</h6></a>
             </div>
-            <div id="socialmedia" class="col-md-6 text-right">
+            <div id="socialmedia" class="col-md-6 text-left">
                 <a href="https://www.facebook.com/jacob.lones"><img src="static/images/FB-f-Logo__blue_50.png"></a>
                 <a href="https://www.instagram.com/jacob_lones.music/"><img src="static/images/Instagram-v051916.png" width="50px"></a>
             </div>
@@ -141,8 +147,25 @@
         </div>
     </div>
     <footer class="text-center">
-        <h1>Site Created By: Jake Gornall</h6>
+        <h6>Site Created By: Jake Gornall</h6>
     </footer>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal">
+        <h1 ng-click="calendar.close()" class="text-right">X</h1>
+        <div class="container">
+            <div class="row">
+                <div ng-repeat="day in calendar.days" class="col-md-2 day-{{day.available|angular}}">
+                    <p>{{day.eventName|angular}}</p>
+                    <p ng-show="{{day.available|angular}}">AVAILABLE!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Angular.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    
     <script src="static/js/LonesMainPageController.js"></script>
 </body>
 </html>
