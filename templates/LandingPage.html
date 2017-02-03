@@ -155,9 +155,11 @@
         <h1 ng-click="calendar.close()" class="text-right">X</h1>
         <div class="container">
             <div class="row">
-                <div ng-repeat="day in calendar.days" class="col-md-2 day-{{day.available|angular}}">
-                    <p>{{day.eventName|angular}}</p>
-                    <p ng-show="{{day.available|angular}}">AVAILABLE!</p>
+                <div ng-repeat="show in calendar.shows" class="col-md-12">
+                    <p>{{show.eventDate|angular}}</p>
+                    <p>{{show.eventTime|angular}}</p>
+                    <p>{{show.eventName|angular}}</p>
+                    <p>{{show.eventAddress|angular}}</p>
                 </div>
             </div>
         </div>

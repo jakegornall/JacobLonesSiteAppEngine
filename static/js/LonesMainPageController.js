@@ -103,15 +103,31 @@ $('a').click(function() {
 angular.module('lonesSite', []).controller('calendarController', function() {
     var calendar = this;
 
-    calendar.days = [
-        // sample data.
-        // To be replaced with Google Calendar API data.
-        {available: false, eventName: "My Event"},
-        {available: true, eventName: ""},
-        {available: false, eventName: "new Event"},
-    ];
+    calendar.shows = [];
+
+    calendar.getShows = function() {
+        $.ajax({
+            url: "/Shows",
+            success: function(response) {
+                calendar.shows = [];
+                if (response.success == true) {
+                    for (var i = 0; i < response.length; i++) {
+                        if (response[i].confirmed == true) {
+                            calendar.shows.push(response[i]);
+                        }
+                    }
+                } else {
+                    console.log(response.msg);
+                }
+            },
+            error: function() {
+                console.log("Server not responding...");
+            }
+        });
+    };
 
     calendar.open = function() {
+        calendar.getShows();
         $('#booking-modal').animate({
             "width": "100%",
             "padding": "10px"
