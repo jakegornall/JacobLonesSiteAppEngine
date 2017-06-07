@@ -64,6 +64,9 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-center no-margin no-padding">
+                {% if loggedIn: %}
+                <h2>Hello, {{loggedInMember.firstName}}!</h2>
+                {% endif %}
                 <h1 id="title">JACOB LONES</h1>
                 <button id="menu-icon">MENU</button>
                 <div id="nav-bar" class="row no-margin no-padding horizontal-nav" width="100%">
@@ -84,31 +87,22 @@
         	<div class="col-md-12 text-center">
         		<h1>Meet The Band</h2>
         	</div>
+            {% if loggedIn %}
+            <div id="band-members-view">
+                <button class="add-member">add member</button>
+                <div id="members-list"></div>
+            </div>
+            {% else %}
+
+            {% for member in members: %}
         	<div class="col-md-12 text-center">
-        		<img class="member-pic" src="static/images/square_lones_bioPic.jpg">
-        		<h1>Jacob Lones</h1>
-        		<p>lead vocals/guitar</p>
+        		<img class="member-pic" src="{{member.picURL}}">
+        		<h1>{{member.firstName}} {{member.lastName}}</h1>
+        		<p>{{member.role}}</p>
         	</div>
-        	<div class="col-md-3 text-center">
-        		<img class="member-pic" src="static/images/LukeHurst_portrait.jpg">
-        		<h1>Luke Hurst</h1>
-        		<p>lead guitar</p>
-        	</div>
-        	<div class="col-md-3 text-center">
-        		<img class="member-pic" src="static/images/wesley_portrait.jpg">
-        		<h1>Wesley Reed</h1>
-        		<p>percussion</p>
-        	</div>
-        	<div class="col-md-3 text-center">
-        		<img class="member-pic" src="static/images/Ben_portrait.jpg">
-        		<h1>Ben Maggard</h1>
-        		<p>bass guitar</p>
-        	</div>
-        	<div class="col-md-3 text-center">
-        		<img class="member-pic" src="static/images/Jordan_portrait.jpg">
-        		<h1>Jordan Bennett</h1>
-        		<p>rythm guitar</p>
-        	</div>
+            {% endfor %}
+        	
+            {% endif %}
         </div>
         <div id="music" class="row">
         	<div class="col-md-6 text-center">
@@ -150,6 +144,15 @@
     <footer class="text-center">
         <h1>Site Created By: Jake Gornall</h6>
     </footer>
+    
+    <script id="band-member-template" type="text/template">{% include 'includes/bandMemberTemplate.html' %}</script>
+
     <script src="static/js/LonesMainPageController.js"></script>
+    {% if loggedIn: %}
+    <script src="{{url_for('static', filename='js/bandMemberModel.js')}}" type="text/javascript"></script>
+    <script src="{{url_for('static', filename='js/bandMembersCollection.js')}}" type="text/javascript"></script>
+    <script src="{{url_for('static', filename='js/bandMemberView.js')}}" type="text/javascript"></script>
+    <script src="{{url_for('static', filename='js/bandMembersView.js')}}" type="text/javascript"></script>
+    {% endif %}
 </body>
 </html>

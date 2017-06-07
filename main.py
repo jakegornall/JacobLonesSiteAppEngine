@@ -20,7 +20,13 @@ def isLoggedIn():
 
 @app.route('/')
 def main():
-    return render_template("LandingPage.html", loggedIn=isLoggedIn())    
+    members = BandMember.query().fetch()
+    loggedInMember = BandMember.get_by_id(session["member_id"])
+    return render_template(
+        "LandingPage.html",
+        loggedIn=isLoggedIn(),
+        members=[m.secure_serialize() for m in members],
+        loggedInMember=loggedInMember.secure_serialize() if isLoggedIn() else None)
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
@@ -31,8 +37,11 @@ def admin():
         # if valid credentials,
         # set cookie and redirect to main()
         
-        if request.form["email"] == 'jakegornall@yahoo.com' and request.form['password'] == 'password':
+        member = BandMember.query(BandMember.email == request.form["email"]).get()
+        
+        if member.admin and request.form['password'] == member.password:
             session["access"] = random.randint(00000, 99999)
+            session["member_id"] = member.key.integer_id()
             response = make_response(redirect('/'))
             response.set_cookie('access', str(session["access"]))
             return response
@@ -41,11 +50,11 @@ def admin():
             return render_template("adminLogin.html", error="invalid credentials")
 
 
-@app.route('/bandMembers', methods=['GET', 'POST'])
+@app.route('/bandMembers', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def bandMembers():
     if request.method == 'GET':
         members = BandMember.query().fetch()
-        return jsonify(data = [m.secure_serialize() for m in members])
+        return jsonify(data = [m.serialize() for m in members])
 
     if request.method == 'POST':
         firstName = request.json.get("firstName")
@@ -61,10 +70,32 @@ def bandMembers():
 
         newMember.put()
 
-        return jsonify(data=newMember.secure_serialize())
+        return jsonify(data=newMember.serialize())
+
+    if request.method == 'PUT':
+        firstName = request.json.get("firstName")
+        lastName = request.json.get("lastName")
+        role = request.json.get("role")
+        picURL = request.json.get("picURL")
+
+        member = BandMember.get_by_id(member_id)
+
+        member.firstName = firstName
+        member.lastName = lastName
+        member.role = role
+        member.picURL = picURL
+
+        member.put()
+
+        return jsonify(success=True, data=member.serialize())
+
+    if request.method == 'DELETE':
+        member = BandMember.get_by_id(member_id)
+        member.key.delete()
+        return jsonify(success=True, data=member.serialize())
 
 
-@app.route('/bandMembers/<int:member_id>', methods=['PUT', 'DEL'])
+@app.route('/bandMembers/<int:member_id>', methods=['PUT', 'DELETE'])
 def bandMember(member_id):
     if request.method == 'PUT':
         firstName = request.json.get("firstName")
@@ -81,12 +112,12 @@ def bandMember(member_id):
 
         member.put()
 
-        return jsonify(success=True)
+        return jsonify(success=True, data=member.serialize())
 
-    if request.method == 'DEL':
+    if request.method == 'DELETE':
         member = BandMember.get_by_id(member_id)
         member.key.delete()
-        return jsonify(success=True)
+        return jsonify(success=True, data=member.serialize())
 
 
 @app.errorhandler(500)

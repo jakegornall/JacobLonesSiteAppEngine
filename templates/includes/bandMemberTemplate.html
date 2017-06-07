@@ -1,0 +1,19 @@
+<div class="band-member-details">
+	<img src="<%- picURL %>">
+	<p>First Name: <%- firstName %></p>
+	<p>Last Name: <%- lastName %></p>
+	<p>Role: <%- role %></p>
+	<p>Email: <%- email %></p>
+	<p>Admin: <%- admin %></p>
+	<p class="edit-member">edit member</p>
+	<p class="remove">delete member</p>
+</div>
+<form class="band-member-edit-form" action="" style="display: none;">
+	<input class="member-pic" type="file" accept="image/*" value="<%- picURL %>"/>
+	<input class="firstName" type="text" placeholder="<%- firstName %>" value="<%- firstName %>"/>
+	<input class="lastName" type="text" placeholder="<%- lastName %>" value="<%- lastName %>"/>
+	<input class="role" type="text" placeholder="<%- role %>" value="<%- role %>"/>
+	<input class="email" type="email" placeholder="<%- email %>" value="<%- email %>"/>
+	<input class="admin" type="checkbox" placeholder="<%- admin %>" <%= admin ? 'checked="checked"' : '' %> />
+	<input class="update-member" type="submit" value="update" />
+</form>

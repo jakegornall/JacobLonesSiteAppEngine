@@ -11,6 +11,7 @@ class BandMember(ndb.Model):
 
     def serialize(self):
     	return {
+    		'id' : self.key.integer_id(),
     		'firstName' : self.firstName,
     		'lastName' : self.lastName,
     		'role' : self.role,
