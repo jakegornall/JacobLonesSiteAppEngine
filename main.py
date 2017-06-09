@@ -20,6 +20,7 @@ def isLoggedIn():
 
 @app.route('/')
 def main():
+    # BandMember(firstName="Jacob", lastName="Lones", role="Lead Singer/Guitars", admin=True, password="password", email="jacoblones@yahoo.com", picURL="/static/images/square_lones_bioPic.jpg").put()
     members = BandMember.query().fetch()
     loggedInMember = BandMember.get_by_id(session["member_id"])
     return render_template(
@@ -36,7 +37,6 @@ def admin():
     if request.method == 'POST':
         # if valid credentials,
         # set cookie and redirect to main()
-        
         member = BandMember.query(BandMember.email == request.form["email"]).get()
         
         if member.admin and request.form['password'] == member.password:
@@ -60,13 +60,13 @@ def bandMembers():
         firstName = request.json.get("firstName")
         lastName = request.json.get("lastName")
         role = request.json.get("role")
-        picURL = request.json.get("picURL")
+        admin = True if request.json.get("admin") == "on" else False
 
         newMember = BandMember(
             firstName = firstName,
             lastName = lastName,
             role = role,
-            picURL = picURL)
+            admin = admin)
 
         newMember.put()
 
@@ -76,7 +76,8 @@ def bandMembers():
         firstName = request.json.get("firstName")
         lastName = request.json.get("lastName")
         role = request.json.get("role")
-        picURL = request.json.get("picURL")
+        picURL = request.files["picURL"] if request.files else request.json.get("picURL")
+        admin = True if request.json.get("admin") == "on" else False
 
         member = BandMember.get_by_id(member_id)
 
@@ -84,6 +85,7 @@ def bandMembers():
         member.lastName = lastName
         member.role = role
         member.picURL = picURL
+        member.admin = admin
 
         member.put()
 

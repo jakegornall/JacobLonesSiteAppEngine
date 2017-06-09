@@ -38,7 +38,8 @@ $(function() {
     			lastName: this.$el.find(".lastName").val(),
     			role: this.$el.find(".role").val(),
     			email: this.$el.find(".email").val(),
-    			admin: this.$el.find(".admin").val()
+    			admin: this.$el.find(".admin").val(),
+    			picURL: this.$el.find(".member-pic-input").val()
     		});
     		this.$el.find(".band-member-details").show();
 			this.$el.find(".band-member-edit-form").hide();

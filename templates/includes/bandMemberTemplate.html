@@ -1,5 +1,5 @@
 <div class="band-member-details">
-	<img src="<%- picURL %>">
+	<img class="bio-pic" src="<%- picURL %>">
 	<p>First Name: <%- firstName %></p>
 	<p>Last Name: <%- lastName %></p>
 	<p>Role: <%- role %></p>
@@ -9,7 +9,7 @@
 	<p class="remove">delete member</p>
 </div>
 <form class="band-member-edit-form" action="" style="display: none;">
-	<input class="member-pic" type="file" accept="image/*" value="<%- picURL %>"/>
+	<input class="member-pic-input" type="file" accept="image/*" value="<%- picURL %>"/>
 	<input class="firstName" type="text" placeholder="<%- firstName %>" value="<%- firstName %>"/>
 	<input class="lastName" type="text" placeholder="<%- lastName %>" value="<%- lastName %>"/>
 	<input class="role" type="text" placeholder="<%- role %>" value="<%- role %>"/>

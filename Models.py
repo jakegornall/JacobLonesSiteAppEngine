@@ -4,7 +4,7 @@ class BandMember(ndb.Model):
     firstName = ndb.StringProperty(required=True)
     lastName = ndb.StringProperty(required=True)
     role = ndb.StringProperty(required=True)
-    picURL = ndb.StringProperty(required=True)
+    picURL = ndb.StringProperty(default="/static/images/placeholder_bioPic.png")
     email = ndb.StringProperty(required=False)
     password = ndb.StringProperty(required=False)
     admin = ndb.BooleanProperty(default=False)

@@ -321,3 +321,39 @@ footer {
 .no-padding {
     padding: 0;
 }
+
+.band-member {
+    display: inline-block;
+    border: 2px solid #072116;
+    border-radius: 5px;
+    width: 25%;
+    margin: 10px;
+    padding: 10px;
+}
+
+.edit-member {
+    border-top: 2px solid #072116;
+    cursor: pointer;
+    padding-top: 10px;
+}
+
+.band-member-details {
+    text-align: center;
+
+}
+
+.bio-pic {
+    border: 10px solid white;
+    border-radius: 50%;
+    margin-top: 30px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.remove {
+    color: red;
+}
+.remove:hover {
+    font-style: underline;
+    cursor: pointer;
+}
