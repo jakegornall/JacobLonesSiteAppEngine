@@ -3,10 +3,11 @@ from flask import Flask, render_template, request, make_response, session, redir
 from flask import jsonify
 import random
 from Models import BandMember
+import os
+import cloudstorage as gcs
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
-
 
 
 def isLoggedIn():
@@ -37,6 +38,7 @@ def admin():
     if request.method == 'POST':
         # if valid credentials,
         # set cookie and redirect to main()
+
         member = BandMember.query(BandMember.email == request.form["email"]).get()
         
         if member.admin and request.form['password'] == member.password:
@@ -50,51 +52,41 @@ def admin():
             return render_template("adminLogin.html", error="invalid credentials")
 
 
-@app.route('/bandMembers', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route('/bioPic', methods=["POST"])
+def bioPic():
+    file = request.files["member-pic"]
+    if file:
+        path = "/jacoblonesofficialsite.appspot.com/" + file.filename
+        with gcs.open(path, 'w') as f:
+            f.write(file.stream.read())
+        return jsonify(success=True, data="https://storage.cloud.google.com" + gcs.stat(path).filename)
+    else:
+        return jsonify(succes=False)
+
+
+@app.route('/bandMembers', methods=['GET', 'POST'])
 def bandMembers():
     if request.method == 'GET':
         members = BandMember.query().fetch()
-        return jsonify(data = [m.serialize() for m in members])
+        return jsonify(sucess=True, data = [m.serialize() for m in members])
 
     if request.method == 'POST':
         firstName = request.json.get("firstName")
         lastName = request.json.get("lastName")
+        email = request.json.get("email")
         role = request.json.get("role")
-        admin = True if request.json.get("admin") == "on" else False
+        admin = request.json.get("admin")
 
         newMember = BandMember(
             firstName = firstName,
             lastName = lastName,
             role = role,
+            email = email,
             admin = admin)
 
         newMember.put()
 
-        return jsonify(data=newMember.serialize())
-
-    if request.method == 'PUT':
-        firstName = request.json.get("firstName")
-        lastName = request.json.get("lastName")
-        role = request.json.get("role")
-        picURL = request.files["picURL"] if request.files else request.json.get("picURL")
-        admin = True if request.json.get("admin") == "on" else False
-
-        member = BandMember.get_by_id(member_id)
-
-        member.firstName = firstName
-        member.lastName = lastName
-        member.role = role
-        member.picURL = picURL
-        member.admin = admin
-
-        member.put()
-
-        return jsonify(success=True, data=member.serialize())
-
-    if request.method == 'DELETE':
-        member = BandMember.get_by_id(member_id)
-        member.key.delete()
-        return jsonify(success=True, data=member.serialize())
+        return jsonify(success=True, data=newMember.serialize())
 
 
 @app.route('/bandMembers/<int:member_id>', methods=['PUT', 'DELETE'])
@@ -104,13 +96,23 @@ def bandMember(member_id):
         lastName = request.json.get("lastName")
         role = request.json.get("role")
         picURL = request.json.get("picURL")
+        email = request.json.get("email")
+        admin = request.json.get("admin")
 
         member = BandMember.get_by_id(member_id)
 
+        if picURL != member.picURL:
+            try:
+                src = member.picURL.replace("https://storage.cloud.google.com/", "")
+                gcs.delete(src)
+            except:
+                print "file not in gcs..."
         member.firstName = firstName
         member.lastName = lastName
         member.role = role
         member.picURL = picURL
+        member.email = email
+        member.admin = admin
 
         member.put()
 

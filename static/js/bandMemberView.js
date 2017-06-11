@@ -33,16 +33,41 @@ $(function() {
 
 		update : function(e) {
     		e.preventDefault();
-    		this.model.save({
-    			firstName: this.$el.find(".firstName").val(),
-    			lastName: this.$el.find(".lastName").val(),
-    			role: this.$el.find(".role").val(),
-    			email: this.$el.find(".email").val(),
-    			admin: this.$el.find(".admin").val(),
-    			picURL: this.$el.find(".member-pic-input").val()
+
+    		var that = this;
+    		var form = new FormData(this.$el.find(".band-member-edit-form")[0])
+
+    		$.ajax({
+    			type: "POST",
+    			url: "/bioPic",
+    			data: form,
+    			processData: false,
+    			contentType: false,
+    			success: function(resp) {
+    				if (resp.success) {
+						var newPicURL = resp.data;
+    				} else {
+    					var newPicURL = that.model.get("picURL")
+    				}
+
+    				console.log(that.$el.find(".admin"));
+
+    				that.model.save({
+    					firstName: that.$el.find(".firstName").val(),
+    					lastName: that.$el.find(".lastName").val(),
+    					role: that.$el.find(".role").val(),
+    					email: that.$el.find(".email").val(),
+    					admin: that.$el.find(".admin")[0].checked,
+    					picURL: newPicURL
+    				});
+    				
+    				that.$el.find(".band-member-details").show();
+					that.$el.find(".band-member-edit-form").hide();
+    			},
+    			error: function() {
+    				console.log("error sending file");
+    			}
     		});
-    		this.$el.find(".band-member-details").show();
-			this.$el.find(".band-member-edit-form").hide();
     	}
 
 	});

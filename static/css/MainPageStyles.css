@@ -121,6 +121,11 @@ a:hover {
 	border: none;
 }
 
+.member-tile {
+    display: inline-block;
+    margin: 20px;
+}
+
 .member-pic {
     border: 10px solid white;
     border-radius: 50%;
@@ -263,6 +268,11 @@ footer {
     }
 }
 @media screen and (max-width: 780px) {
+
+    .member-tile {
+        width: 100%;
+    }
+
 	#content {
 		padding-top: 60px;
 	}
@@ -314,6 +324,11 @@ footer {
 
 }
 
+#add-member {
+    padding: 10px;
+    border-radius: 5px;
+}
+
 .no-margin {
     margin: 0;
 }
@@ -322,11 +337,30 @@ footer {
     padding: 0;
 }
 
+#band-members-view {
+    text-align: center;
+}
+
+.band-member-edit-form {
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+.band-member-edit-form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 .band-member {
     display: inline-block;
     border: 2px solid #072116;
     border-radius: 5px;
-    width: 25%;
+    width: 400px;
+    height: 600px;
     margin: 10px;
     padding: 10px;
 }
@@ -346,7 +380,8 @@ footer {
     border: 10px solid white;
     border-radius: 50%;
     margin-top: 30px;
-    width: 100%;
+    width: 300px;
+    height: 300px;
     margin-bottom: 20px;
 }
 

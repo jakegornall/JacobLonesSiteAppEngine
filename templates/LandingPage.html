@@ -67,7 +67,6 @@
                 {% if loggedIn: %}
                 <h2>Hello, {{loggedInMember.firstName}}!</h2>
                 {% endif %}
-                <h1 id="title">JACOB LONES</h1>
                 <button id="menu-icon">MENU</button>
                 <div id="nav-bar" class="row no-margin no-padding horizontal-nav" width="100%">
                     <a href="#home"><div class="menu-item">HOME</div></a>
@@ -83,19 +82,19 @@
                 <img id="banner" src="static/images/LonesBanner.png">
             </div>
         </div>
-        <div id="about" class="row">
+        <div id="about" class="row text-center">
         	<div class="col-md-12 text-center">
         		<h1>Meet The Band</h2>
         	</div>
             {% if loggedIn %}
             <div id="band-members-view">
-                <button class="add-member">add member</button>
+                <button class="btn-success" id="add-member">add member</button>
                 <div id="members-list"></div>
             </div>
             {% else %}
 
             {% for member in members: %}
-        	<div class="col-md-12 text-center">
+        	<div class="member-tile text-center">
         		<img class="member-pic" src="{{member.picURL}}">
         		<h1>{{member.firstName}} {{member.lastName}}</h1>
         		<p>{{member.role}}</p>

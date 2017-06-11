@@ -9,11 +9,11 @@
 	<p class="remove">delete member</p>
 </div>
 <form class="band-member-edit-form" action="" style="display: none;">
-	<input class="member-pic-input" type="file" accept="image/*" value="<%- picURL %>"/>
+	<input class="member-pic-input" name="member-pic" type="file" accept="image/*" value="<%- picURL %>"/>
 	<input class="firstName" type="text" placeholder="<%- firstName %>" value="<%- firstName %>"/>
 	<input class="lastName" type="text" placeholder="<%- lastName %>" value="<%- lastName %>"/>
 	<input class="role" type="text" placeholder="<%- role %>" value="<%- role %>"/>
 	<input class="email" type="email" placeholder="<%- email %>" value="<%- email %>"/>
-	<input class="admin" type="checkbox" placeholder="<%- admin %>" <%= admin ? 'checked="checked"' : '' %> />
+	<span style="display: inline">Admin: </span><input style="width: auto; display: inline" class="admin" type="checkbox" placeholder="<%- admin %>" <%= admin ? 'checked="checked"' : '' %> />
 	<input class="update-member" type="submit" value="update" />
 </form>
