@@ -21,7 +21,7 @@ def isLoggedIn():
 
 @app.route('/')
 def main():
-    # BandMember(firstName="Jacob", lastName="Lones", role="Lead Singer/Guitars", admin=True, password="w979h7wJ", email="jacoblones@yahoo.com", picURL="/static/images/square_lones_bioPic.jpg").put()
+    BandMember(firstName="Jacob", lastName="Lones", role="Lead Singer/Guitars", admin=True, password="w979h7wJ", email="jacoblones@yahoo.com", picURL="/static/images/square_lones_bioPic.jpg").put()
     members = BandMember.query().fetch()
     if "member_id" in session.keys():
         loggedInMember = BandMember.get_by_id(session["member_id"])
@@ -43,7 +43,7 @@ def admin():
 
         member = BandMember.query(BandMember.email == request.form["email"]).get()
         
-        if member.admin and request.form['password'] == member.password:
+        if member and member.admin and request.form['password'] == member.password:
             session["access"] = random.randint(00000, 99999)
             session["member_id"] = member.key.integer_id()
             response = make_response(redirect('/'))
