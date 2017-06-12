@@ -126,6 +126,10 @@ a:hover {
     margin: 20px;
 }
 
+.error-msg {
+    color: red;
+}
+
 .member-pic {
     border: 10px solid white;
     border-radius: 50%;
