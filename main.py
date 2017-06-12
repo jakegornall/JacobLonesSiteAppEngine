@@ -21,9 +21,11 @@ def isLoggedIn():
 
 @app.route('/')
 def main():
-    # BandMember(firstName="Jacob", lastName="Lones", role="Lead Singer/Guitars", admin=True, password="password", email="jacoblones@yahoo.com", picURL="/static/images/square_lones_bioPic.jpg").put()
+    # BandMember(firstName="Jacob", lastName="Lones", role="Lead Singer/Guitars", admin=True, password="w979h7wJ", email="jacoblones@yahoo.com", picURL="/static/images/square_lones_bioPic.jpg").put()
     members = BandMember.query().fetch()
-    loggedInMember = BandMember.get_by_id(session["member_id"])
+    if "member_id" in session.keys():
+        loggedInMember = BandMember.get_by_id(session["member_id"])
+
     return render_template(
         "LandingPage.html",
         loggedIn=isLoggedIn(),
