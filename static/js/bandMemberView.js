@@ -50,7 +50,7 @@ $(function() {
         
                     window.URL.revokeObjectURL( img.src );
         
-                    if( width == 300 && height == 300 ) {
+                    if( width == height ) {
                         $.ajax({
                             type: "POST",
                             url: "/bioPic",
