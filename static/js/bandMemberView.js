@@ -35,88 +35,38 @@ $(function() {
             e.preventDefault();
 
             var that = this,
-                form = new FormData(this.$el.find(".band-member-edit-form")[0]),
-                fileInput = this.$el.find(".member-pic-input")[0],
-                file = fileInput.files && fileInput.files[0];
+                form = new FormData(this.$el.find(".band-member-edit-form")[0]);
 
-            if( file ) {
-                var img = new Image();
-        
-                img.src = window.URL.createObjectURL( file );
-        
-                img.onload = function() {
-                    var width = img.naturalWidth,
-                        height = img.naturalHeight;
-        
-                    window.URL.revokeObjectURL( img.src );
-        
-                    if( width == height ) {
-                        $.ajax({
-                            type: "POST",
-                            url: "/bioPic",
-                            data: form,
-                            processData: false,
-                            contentType: false,
-                            success: function(resp) {
-                                if (resp.success) {
-                                    var newPicURL = resp.data;
-                                } else {
-                                    var newPicURL = that.model.get("picURL")
-                                }
+            $.ajax({
+                type: "POST",
+                url: "/bioPic",
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function(resp) {
 
-                                console.log(that.$el.find(".admin"));
-
-                                that.model.save({
-                                    firstName: that.$el.find(".firstName").val(),
-                                    lastName: that.$el.find(".lastName").val(),
-                                    role: that.$el.find(".role").val(),
-                                    email: that.$el.find(".email").val(),
-                                    admin: that.$el.find(".admin")[0].checked,
-                                    picURL: newPicURL
-                                });
-                                
-                                that.$el.find(".band-member-details").show();
-                                that.$el.find(".band-member-edit-form").hide();
-                            },
-                            error: function() {
-                                console.log("error sending file");
-                            }
-                        });
+                    if (resp.success) {
+                        var newPicURL = resp.data;
                     } else {
-                        that.$el.find(".error-msg").text("Image must be a square. Ex. w:300px h:300px");
+                        var newPicURL = that.model.get("picURL");
                     }
-                };
-            } else {
-                $.ajax({
-                    type: "POST",
-                    url: "/bioPic",
-                    data: form,
-                    processData: false,
-                    contentType: false,
-                    success: function(resp) {
-                        if (resp.success) {
-                            var newPicURL = resp.data;
-                        } else {
-                            var newPicURL = that.model.get("picURL")
-                        
-                            that.model.save({
-                                firstName: that.$el.find(".firstName").val(),
-                                lastName: that.$el.find(".lastName").val(),
-                                role: that.$el.find(".role").val(),
-                                email: that.$el.find(".email").val(),
-                                admin: that.$el.find(".admin")[0].checked,
-                                picURL: newPicURL
-                            });
-                            
-                            that.$el.find(".band-member-details").show();
-                            that.$el.find(".band-member-edit-form").hide();
-                        }
-                    },
-                    error: function() {
-                        console.log("error sending file");
-                    }
-                });
-            }
+                    
+                    that.model.save({
+                        firstName: that.$el.find(".firstName").val(),
+                        lastName: that.$el.find(".lastName").val(),
+                        role: that.$el.find(".role").val(),
+                        email: that.$el.find(".email").val(),
+                        admin: that.$el.find(".admin")[0].checked,
+                        picURL: newPicURL
+                    });
+                    
+                    that.$el.find(".band-member-details").show();
+                    that.$el.find(".band-member-edit-form").hide();
+                },
+                error: function() {
+                    console.log("error sending file");
+                }
+            });
         }
     });
 
