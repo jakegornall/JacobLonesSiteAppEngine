@@ -95,7 +95,7 @@
 
             {% for member in members: %}
         	<div class="member-tile text-center">
-        		<img class="member-pic" src="{{member.picURL}}">
+        		<div style="background-image: url('{{member.picURL}}')" class="member-pic"></div>
         		<h1>{{member.firstName}} {{member.lastName}}</h1>
         		<p>{{member.role}}</p>
         	</div>

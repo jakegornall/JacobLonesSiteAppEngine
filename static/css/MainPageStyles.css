@@ -131,6 +131,10 @@ a:hover {
 }
 
 .member-pic {
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
     border: 10px solid white;
     border-radius: 50%;
     margin-top: 30px;
