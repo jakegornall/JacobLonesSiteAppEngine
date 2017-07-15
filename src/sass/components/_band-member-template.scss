@@ -1,0 +1,55 @@
+.band-member {
+    vertical-align: top;
+    display: inline-block;
+    border: 2px solid #072116;
+    border-radius: 5px;
+    width: 400px;
+    height: 600px;
+    margin: 10px;
+    padding: 10px;
+
+    .band-member-details {
+        text-align: center;
+
+        .bio-pic {
+            margin-left: auto;
+            margin-right: auto;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border: 10px solid white;
+            border-radius: 50%;
+            margin-top: 30px;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .edit-member {
+            border-top: 2px solid #072116;
+            cursor: pointer;
+            padding-top: 10px;
+        }
+
+        .remove {
+            color: red;
+        }
+        .remove:hover {
+            font-style: underline;
+            cursor: pointer;
+        }
+    }
+
+    .band-member-edit-form {
+        position: relative;
+        top: 0px;
+        left: 0px;
+
+        input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    }
+}

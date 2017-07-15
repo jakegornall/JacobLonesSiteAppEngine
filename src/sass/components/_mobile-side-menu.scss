@@ -1,0 +1,29 @@
+#mobile-side-menu {
+	left: -60%;
+	position: fixed;
+	width: 50%;
+	height: 100%;
+	top: 0px;
+
+	.menu-item {
+		font-size: 35px;
+		height: calc(100% / 5);
+	}
+}
+
+@media screen and (min-width: 1276) {
+	#mobile-side-menu {
+		left: -60%;
+		position: fixed;
+		width: 50%;
+		height: 100%;
+		top: 0px;
+	}
+}
+
+@media screen and (max-width: 1275px) and  (min-width: 993px) {
+	#mobile-side-menu {
+		left: -60%;
+		display: none;
+	}
+}
