@@ -7,7 +7,8 @@
 
 	.menu-item {
 		font-size: 35px;
-		height: calc(100% / 5);
+		height: auto;
+    	border-bottom: 1px #4d6f82 solid;
 	}
 }
 
