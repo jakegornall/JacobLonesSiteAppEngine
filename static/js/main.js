@@ -5,21 +5,12 @@ require.config({
         "BandMemberModel": "./components/BandMemberModel",
         "BandMembersCollection": "./components/BandMembersCollection",
         "BandMembersView": "./components/BandMembersView",
-        "BandMemberView": "./components/BandMemberView"
+        "BandMemberView": "./components/BandMemberView",
+        "LonesApp": "./components/LonesApp"
     }
 });
 
-define('main', [
-	'BandMembersView',
-	'BandMembersCollection'
-	], function(
-	BandMembersView,
-	BandMembersCollection
-	) {
-
-	var bandMembersCollection = new BandMembersCollection;
-
-	var bandMembersView = new BandMembersView({
-		'collection': bandMembersCollection
-	});
+define('main', ['LonesApp'], function(LonesApp) {
+	var app = new LonesApp;
+	app.init();
 });
