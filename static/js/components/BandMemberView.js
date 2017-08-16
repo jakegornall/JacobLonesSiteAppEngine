@@ -1,7 +1,7 @@
-var bandMemberView = bandMemberView || {};
+define('BandMemberView', [], function() {
+    'use strict';
 
-$(function() {
-    var BMView = Backbone.View.extend({
+    var BandMemberView = Backbone.View.extend({
         tagName : "div",
         className : "band-member",
         template : _.template($("#band-member-template").html()),
@@ -70,5 +70,5 @@ $(function() {
         }
     });
 
-    bandMemberView = BMView;
+    return BandMemberView;
 });

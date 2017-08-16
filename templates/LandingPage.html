@@ -148,10 +148,7 @@
 
     <script src="static/js/LonesMainPageController.js"></script>
     {% if loggedIn: %}
-    <script src="{{url_for('static', filename='js/bandMemberModel.js')}}" type="text/javascript"></script>
-    <script src="{{url_for('static', filename='js/bandMembersCollection.js')}}" type="text/javascript"></script>
-    <script src="{{url_for('static', filename='js/bandMemberView.js')}}" type="text/javascript"></script>
-    <script src="{{url_for('static', filename='js/bandMembersView.js')}}" type="text/javascript"></script>
+    <script data-main="static/js/main" src="static/js/require.js"></script>
     {% endif %}
 </body>
 </html>

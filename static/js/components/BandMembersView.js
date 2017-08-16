@@ -1,7 +1,7 @@
-var bandMembersView = bandMembersView || {};
+define('BandMembersView', ['BandMemberView'], function(BandMemberView) {
+	'use strict';
 
-$(function() {
-	var BMsView = Backbone.View.extend({
+	var BandMembersView = Backbone.View.extend({
 
 		$el : $('#band-members-view'),
 
@@ -31,11 +31,11 @@ $(function() {
 
 		addMemberView : function(member) {
 			console.log("memberAdded");
-			var view = new bandMemberView({ model: member });
+			var view = new BandMemberView({ model: member });
       		$("#members-list").append(view.render().el);
 		}
 
 	});
 
-	bandMembersView = new BMsView({ collection: bandMembersCollection });
+	return BandMembersView;
 });

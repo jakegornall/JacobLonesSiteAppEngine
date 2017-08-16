@@ -1,7 +1,7 @@
-var bandMemberModel = bandMemberModel || {};
+define('BandMemberModel', [], function() {
+	'use strict';
 
-$(function() {
-	var BMModel = Backbone.Model.extend({
+	var BandMemberModel = Backbone.Model.extend({
 		defaults: {
 			"_id": "",
 			"firstName": "First Name",
@@ -13,5 +13,5 @@ $(function() {
 		}
 	});
 
-	bandMemberModel = BMModel;
+	return BandMemberModel;
 });
